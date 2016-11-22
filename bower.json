@@ -1,6 +1,13 @@
 {
     "name": "paper-expansion-panel",
     "description": "Expansion panel material design implementation",
+    "keywords": [
+        "web-component",
+        "web-components",
+        "polymer",
+        "expansion panel",
+        "paper-expansion-panel"
+    ],
     "main": "paper-panel-list.html",
     "dependencies": {
         "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.3.1",
