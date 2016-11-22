@@ -1,0 +1,182 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="../paper-styles/color.html">
+<link rel="import" href="../paper-styles/default-theme.html">
+<link rel="import" href="../paper-styles/shadow.html">
+<link rel="import" href="../paper-styles/typography.html">
+
+<link rel="import" href="./paper-panel.html">
+
+<!--
+## &lt;paper-panel-list&gt;
+Material design: [Expansion panel] (https://material.google.com/components/expansion-panels.html)
+
+`<paper-panel-list>` implements the material design of an expansion panel list. The following is the example
+of the `<paper-panel-list>` usage
+
+```html
+<paper-panel-list>
+	<paper-panel>...</paper-panel>
+	...
+	<paper-panel>...</paper-panel>
+</paper-panel-list>
+```
+
+@demo demo/index.html
+-->
+
+<dom-module id="paper-panel-list">
+    <template>
+        <style>
+            :host {
+                display: block;
+                width: 100%;
+            }
+
+            #container {
+                @apply(--layout-vertical);
+                @apply(--layout-flex);
+                padding-bottom: 16px;
+            }
+
+            .group {
+                @apply(--layout-vertical);
+                @apply(--layout-flex);
+                @apply(--shadow-elevation-2dp);
+                border-radius: 2px;
+                box-sizing: border-box;
+                display: inline-block;
+                margin-top: 16px;
+                width: 100%;
+            }
+            .hr {
+                @apply(--layout-flex);
+                background-color: rgba(0, 0, 0, 0.12);
+                height: 1px;
+                max-height: 1px;
+                min-height: 1px;
+            }
+        </style>
+
+        <div id="container">
+            <template is="dom-repeat" items="[[_groups]]" as="_group">
+                <div class="group">
+                    <template is="dom-repeat" items="[[_group]]" as="_id" index-as="_idNo">
+                        <template is="dom-if" if="[[_idNo]]">
+                            <div class="hr"></div>
+                        </template>
+                        <content select="[[_calcSelect(_id)]]"></content>
+                    </template>
+                </div>
+            </template>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'paper-panel-list',
+
+            properties: {
+                _groups: {
+                    type: Array,
+                    value: []
+                }
+            },
+
+            attached: function() {
+                var self = this;
+
+                this._observer = Polymer.dom(this).observeNodes(function(info) {
+                    self._processNewNodes(info.addedNodes);
+                    self._processRemovedNodes(info.removedNodes);
+                    self._redraw();
+                });
+            },
+            attributeChanged: function(name, type) {
+            },
+            detached: function() {
+                Polymer.dom(node).unobserveNodes(this._observer);
+            },
+            ready: function() {
+            },
+
+            _calcSelect(id) {
+                return '[data-id="' + id + '"]';
+            },
+            _onOpenedChanged: function() {
+                this._redraw();
+            },
+            _processNewNodes: function(nodes) {
+                var self = this;
+
+                if (
+                    nodes !== undefined &&
+                    nodes !== null
+                ) {
+                    nodes.forEach(function (node) {
+                        if (
+                            node.tagName &&
+                            node.tagName.toLowerCase() === 'paper-panel'
+                        ) {
+                            self.listen(node, 'opened-changed', '_onOpenedChanged');
+                        }
+                    });
+                }
+            },
+            _processRemovedNodes: function(nodes) {
+                var self = this;
+
+                if (
+                    nodes !== undefined &&
+                    nodes !== null
+                ) {
+                    nodes.forEach(function (node) {
+                        if (
+                            node.tagName &&
+                            node.tagName.toLowerCase() === 'paper-panel'
+                        ) {
+                            self.unlisten(node, 'opened-changed', '_onOpenedChanged');
+                            Polymer.dom(node).removeAttribute('data-id');
+                        }
+                    });
+                }
+            },
+            _redraw: function() {
+                var self = this;
+                var items = this.queryAllEffectiveChildren('paper-panel');
+
+                if (
+                    items !== null &&
+                    items !== undefined &&
+                    items.length > 0
+                ) {
+                    var groups = [];
+                    var group = undefined;
+                    var id = 0;
+
+                    items.forEach(function(item) {
+                        if (item.opened) {
+                            if (group !== undefined) {
+                                groups.push(group);
+                            }
+                            groups.push([ '' + id ]);
+                            group = undefined;
+                        } else {
+                            if (group === undefined) {
+                                group = [];
+                            }
+                            group.push('' + id);
+                        }
+                        Polymer.dom(item).setAttribute('data-id', '' + id++);
+                    });
+
+                    if (group !== undefined) {
+                        groups.push(group);
+                    }
+
+                    this._groups = groups;
+                }
+            }
+        });
+    </script>
+</dom-module>

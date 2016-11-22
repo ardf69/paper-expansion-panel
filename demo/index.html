@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>paper-expansion-panel demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../iron-flex-layout/iron-flex-layout.html">
+    <link rel="import" href="../../iron-icon/iron-icon.html">
+	<link rel="import" href="../../iron-icons/iron-icons.html">
+	<link rel="import" href="../../paper-button/paper-button.html">
+
+    <link rel="import" href="../paper-panel.html">
+    <link rel="import" href="../paper-panel-list.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+
+    </style>
+</head>
+
+<body>
+
+    <div class="vertical-section-container centered">
+        <h3>Basic paper-expansion-panel Demo</h3>
+        <demo-snippet>
+            <template>
+                <style is="custom-style">
+                    .col1 {
+                        @apply(--layout-flex);
+                    }
+                    .col2 {
+                        @apply(--layout-flex-2);
+                    }
+                    .small {
+                        --iron-icon-height: 16px;
+                        --iron-icon-width: 16px;
+                    }
+                </style>
+
+                <paper-panel-list>
+                    <paper-panel>
+                        <paper-closed-panel-title class="col1">Trip name</paper-closed-panel-title>
+                        <paper-closed-panel-header class="col2">Caribbean cruise</paper-closed-panel-header>
+                    </paper-panel>
+                    <paper-panel>
+                        <paper-closed-panel-title class="col1">Location</paper-closed-panel-title>
+                        <paper-closed-panel-header class="col2">Barbados</paper-closed-panel-header>
+                        <paper-expanded-panel-title class="col1">Location</paper-expanded-panel-title>
+                        <paper-expanded-panel-header class="col2">
+                            Select trip destination <iron-icon class="small" icon="help-outline"></iron-icon>
+                        </paper-expanded-panel-header>
+                        <paper-expanded-panel-content>
+                            <div class="col2">B</div>
+                            <div class="col1">C</div>
+                        </paper-expanded-panel-content>
+                        <paper-expanded-panel-footer>
+                            <paper-button>Cancel</paper-button>
+							<paper-button>Save</paper-button>
+                        </paper-expanded-panel-footer>
+                    </paper-panel>
+                    <paper-panel>
+						<paper-closed-panel-title class="col1">Start and end Dates</paper-closed-panel-title>
+						<paper-closed-panel-header class="col1">Start date: Feb 29, 2016</paper-closed-panel-header>
+						<paper-closed-panel-header class="col1">End date: Not set</paper-closed-panel-header>
+					</paper-panel>
+                </paper-panel-list>
+        </template>
+        </demo-snippet>
+    </div>
+
+</body>
+
+</html>

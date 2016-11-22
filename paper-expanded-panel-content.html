@@ -1,0 +1,53 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../paper-styles/typography.html">
+
+<!--
+## &lt;paper-panel-expanded-panel-content&gt;
+Material design: [Expansion panel content] (https://material.google.com/components/expansion-panels.html)
+
+`<paper-panel-expanded-header-content>` is the html content of an expanded panel. An expanded panel
+can contain 1 content.
+
+@demo demo/index.html
+-->
+
+<dom-module id="paper-expanded-panel-content">
+    <template>
+        <style>
+            :host {
+                display: block;
+                padding: 0px 24px 16px 24px;
+                width: 100%;
+            }
+
+            #container {
+                @apply(--layout-horizontal);
+                @apply(--layout-flex);
+            }
+        </style>
+
+        <div id="container">
+            <content></content>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'paper-expanded-panel-content',
+
+            properties: {
+            },
+
+            attached: function() {
+            },
+            attributeChanged: function(name, type) {
+            },
+            detached: function() {
+            },
+            ready: function() {
+            },
+
+        });
+    </script>
+</dom-module>
