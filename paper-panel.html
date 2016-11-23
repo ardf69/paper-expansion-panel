@@ -109,21 +109,21 @@ of the `<paper-panel>` usage
 
         <template is="dom-if" if="[[!opened]]" restamp>
             <div class="container-closed">
-				<div class="fill">
+				<div class="fill" on-tap="_onHeaderTap">
 	                <content select="paper-closed-panel-title"></content>
 	                <content select="paper-closed-panel-header"></content>
 				</div>
-                <paper-icon-button class="button" icon="expand-more" on-tap="_onTap"></paper-icon-button>
+                <paper-icon-button class="button" icon="expand-more" on-tap="_onButtonTap"></paper-icon-button>
             </div>
         </template>
         <template is="dom-if" if="[[opened]]" restamp>
             <div class="container-expanded">
                 <div class="container-expanded-header">
-					<div class="fill">
+					<div class="fill" on-tap="_onHeaderTap">
 	                    <content select="paper-expanded-panel-title"></content>
 	                    <content select="paper-expanded-panel-header"></content>
 					</div>
-                    <paper-icon-button class="button" icon="expand-less" on-tap="_onTap"></paper-icon-button>
+                    <paper-icon-button class="button" icon="expand-less" on-tap="_onButtonTap"></paper-icon-button>
                 </div>
                 <div class="body">
                     <content select="paper-expanded-panel-content"></content>
@@ -140,6 +140,13 @@ of the `<paper-panel>` usage
             is: 'paper-panel',
 
             properties: {
+				/**
+				 * Every time there is a tap on title or headers (closed or
+				 * expanded) an event is generated.
+				 *
+				 * @event header-tap
+				 */
+
 				/**
              	 * If true, the panel is expanded.
                  */
@@ -159,9 +166,12 @@ of the `<paper-panel>` usage
             ready: function() {
             },
 
-            _onTap: function() {
+            _onButtonTap: function(event) {
                 this.opened = !this.opened;
-            }
+            },
+			_onHeaderTap: function(event) {
+				this.fire('header-tap', {});
+			}
         });
     </script>
 </dom-module>
