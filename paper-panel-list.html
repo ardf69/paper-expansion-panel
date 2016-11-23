@@ -95,7 +95,7 @@ of the `<paper-panel-list>` usage
             attributeChanged: function(name, type) {
             },
             detached: function() {
-                Polymer.dom(node).unobserveNodes(this._observer);
+                Polymer.dom(this).unobserveNodes(this._observer);
             },
             ready: function() {
             },
