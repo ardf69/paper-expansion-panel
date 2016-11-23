@@ -1,0 +1,177 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+
+<link rel="import" href="./paper-closed-panel-header.html">
+<link rel="import" href="./paper-closed-panel-title.html">
+<link rel="import" href="./paper-expanded-panel-content.html">
+<link rel="import" href="./paper-expanded-panel-footer.html">
+<link rel="import" href="./paper-expanded-panel-header.html">
+<link rel="import" href="./paper-expanded-panel-title.html">
+
+<!--
+## &lt;paper-panel&gt;
+Material design: [Expansion panel] (https://material.google.com/components/expansion-panels.html)
+
+`<paper-panel>` implements the material design of an expansion panel. The following is the example
+of the `<paper-panel>` usage
+
+```html
+	<paper-panel>
+		<paper-closed-panel-title>...</paper-closed-panel-title>
+		<paper-closed-panel-header>...</paper-closed-panel-header>
+		...
+		<paper-closed-panel-header>...</paper-closed-panel-header>
+		<paper-expanded-panel-title>...</paper-expanded-panel-title>
+		<paper-expanded-panel-header>...</paper-expanded-panel-header>
+		...
+		<paper-expanded-panel-header>...</paper-expanded-panel-header>
+		<paper-expanded-panel-content>...</paper-expanded-panel-content>
+		<paper-expanded-panel-footer>...</paper-expanded-panel-footer>
+	</paper-panel>
+```
+
+@demo demo/index.html
+-->
+
+<dom-module id="paper-panel">
+    <template>
+        <style>
+            :host {
+                display: block;
+				max-width: 100%;
+				min-width: 100%;
+				width: 100%;
+            }
+
+            .body {
+                @apply(--layout-horizontal);
+                @apply(--layout-flex);
+            }
+
+            .button {
+                --paper-icon-button: {
+                    color: rgba(0, 0, 0, 0.38);
+                    height: 24px;
+                    padding: 0;
+                    width: 24px;
+                }
+            }
+
+            .container-closed {
+                @apply(--layout-horizontal);
+                @apply(--layout-flex);
+                @apply(--layout-center);
+                height: 48px;
+                max-height: 48px;
+                min-height: 48px;
+                padding: 0px 24px 0px 24px;
+
+				max-width: calc(100% - 48px);
+				min-width: calc(100% - 48px);
+				width: calc(100% - 48px);
+            }
+
+            .container-expanded {
+                @apply(--layout-vertical);
+                @apply(--layout-flex);
+				display: block;
+            }
+
+            .container-expanded-header {
+                @apply(--layout-horizontal);
+                @apply(--layout-flex);
+                @apply(--layout-center);
+                height: 64px;
+                max-height: 64px;
+                min-height: 64px;
+                padding: 0px 24px 0px 24px;
+
+				max-width: calc(100% - 48px);
+				min-width: calc(100% - 48px);
+				width: calc(100% - 48px);
+            }
+
+			.fill {
+				@apply(--layout-horizontal);
+				@apply(--layout-center);
+				max-width: calc(100% - 24px);
+				min-width: calc(100% - 24px);
+				width: calc(100% - 24px);
+			}
+
+            .footer {
+                @apply(--layout-horizontal);
+                @apply(--layout-flex);
+            }
+        </style>
+
+        <template is="dom-if" if="[[!opened]]" restamp>
+            <div class="container-closed">
+				<div class="fill" on-tap="_onHeaderTap">
+	                <content select="paper-closed-panel-title"></content>
+	                <content select="paper-closed-panel-header"></content>
+				</div>
+                <paper-icon-button class="button" icon="expand-more" on-tap="_onButtonTap"></paper-icon-button>
+            </div>
+        </template>
+        <template is="dom-if" if="[[opened]]" restamp>
+            <div class="container-expanded">
+                <div class="container-expanded-header">
+					<div class="fill" on-tap="_onHeaderTap">
+	                    <content select="paper-expanded-panel-title"></content>
+	                    <content select="paper-expanded-panel-header"></content>
+					</div>
+                    <paper-icon-button class="button" icon="expand-less" on-tap="_onButtonTap"></paper-icon-button>
+                </div>
+                <div class="body">
+                    <content select="paper-expanded-panel-content"></content>
+                </div>
+                <div class="footer">
+                    <content select="paper-expanded-panel-footer"></content>
+                </div>
+            </div>
+        </template>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'paper-panel',
+
+            properties: {
+				/**
+				 * Every time there is a tap on title or headers (closed or
+				 * expanded) an event is generated.
+				 *
+				 * @event header-tap
+				 */
+
+				/**
+             	 * If true, the panel is expanded.
+                 */
+                opened: {
+                    notify: true,
+                    type: Boolean,
+                    value: false
+                },
+            },
+
+            attached: function() {
+            },
+            attributeChanged: function(name, type) {
+            },
+            detached: function() {
+            },
+            ready: function() {
+            },
+
+            _onButtonTap: function(event) {
+                this.opened = !this.opened;
+            },
+			_onHeaderTap: function(event) {
+				this.fire('header-tap', {});
+			}
+        });
+    </script>
+</dom-module>

@@ -1,0 +1,54 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../paper-styles/typography.html">
+
+<!--
+## &lt;paper-panel-expanded-panel-header&gt;
+Material design: [Expansion panel header] (https://material.google.com/components/expansion-panels.html)
+
+`<paper-panel-expanded-panel-header>` is the header that contain the html of an expanded panel. An expanded panel
+can contain 0 or more headers.
+
+@demo demo/index.html
+-->
+
+<dom-module id="paper-expanded-panel-header">
+    <template>
+        <style>
+            :host {
+                @apply(--layout-horizontal);
+                @apply(--paper-font-common-base);
+                @apply(--paper-font-common-nowrap);
+
+                color: rgba(0, 0, 0, 0.54);
+                display: block;
+                font-size: 15px;
+                font-weight: 500;
+                line-height: 16px;
+                padding-right: 16px;
+            }
+
+        </style>
+
+        <content></content>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'paper-expanded-panel-header',
+
+            properties: {
+            },
+
+            attached: function() {
+            },
+            attributeChanged: function(name, type) {
+            },
+            detached: function() {
+            },
+            ready: function() {
+            },
+
+        });
+    </script>
+</dom-module>

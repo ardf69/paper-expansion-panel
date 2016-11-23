@@ -1,0 +1,78 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../paper-styles/typography.html">
+
+<!--
+## &lt;paper-panel-expanded-panel-footer&gt;
+Material design: [Expansion panel footer] (https://material.google.com/components/expansion-panels.html)
+
+`<paper-panel-expanded-header-footer>` is the html footer of an expanded panel. An expanded panel
+can contain 1 footer.
+
+@demo demo/index.html
+-->
+
+<dom-module id="paper-expanded-panel-footer">
+    <template>
+        <style>
+            :host {
+                display: block;
+                width: 100%;
+            }
+
+            .container {
+                @apply(--layout-vertical);
+                @apply(--layout-flex);
+                height: 48px;
+                max-height: 48px;
+                min-height: 48px;
+            }
+
+            .buttons {
+                @apply(--layout-horizontal);
+				@apply(--layout-flex);
+				@apply(--layout-end-justified);
+                padding: 0px 8px 16px 24px;
+            }
+
+			.margins {
+				margin-left: 8px;
+			}
+
+            .hr {
+                @apply(--layout-flex);
+                background-color: rgba(0, 0, 0, 0.12);
+                height: 1px;
+                margin-bottom: 16px;
+                max-height: 1px;
+                min-height: 1px;
+            }
+        </style>
+
+        <div class="container">
+            <div class="hr"></div>
+            <div class="buttons">
+                <content class="margins"></content>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'paper-expanded-panel-footer',
+
+            properties: {
+            },
+
+            attached: function() {
+            },
+            attributeChanged: function(name, type) {
+            },
+            detached: function() {
+            },
+            ready: function() {
+            },
+
+        });
+    </script>
+</dom-module>
